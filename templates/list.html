@@ -1,0 +1,25 @@
+{% include 'base.html' %}
+<h1>Task List</h1>
+<table>
+    <tr>
+        <th>Tasks Title</th>
+        <th>Description</th>
+        <th>Deadline</th>
+        <th>Status</th>
+    </tr>
+    {% for obj in tasks %}
+    <tr>
+        <td>{{obj.title}}</td>
+        <td>{{obj.description}}</td>
+        <td>{{obj.deadline}}</td>
+        <td>{{obj.status}}</td>
+        <td>
+            <a href="{% url 'task_update' obj.id %}" type="submit">Update</a>
+        </td>
+        <td>
+            <a href="{% url 'task_delete' obj.id %}" type="submit">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>

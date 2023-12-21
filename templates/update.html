@@ -1,0 +1,27 @@
+{% include 'base.html' %}
+<h1>Update Task</h1>
+<form method="post">
+    {% csrf_token %}
+    <label for="title">Title:</label>
+    <input type="text" name="title" value="{{ task.title }}" required><br>
+
+    <label for="description">Description:</label>
+    <textarea name="description" required>{{ task.description }}</textarea><br>
+
+    <label for="deadline">Deadline:</label>
+    <input type="date" name="deadline" value="{{ task.deadline }}" required><br>
+
+    <label for="status">Status:</label>
+    <input type="radio" name="status" value="in_progress" {% if task.status == 'not_started' %}checked{% endif %}> Not started
+    <input type="radio" name="status" value="in_progress" {% if task.status == 'in_progress' %}checked{% endif %}> In progress
+    <input type="radio" name="status" value="completed" {% if task.status == 'completed' %}checked{% endif %}> Completed
+    <input type="radio" name="status" value="postponed" {% if task.status == 'postponed' %}checked{% endif %}> Postponed
+    <input type="radio" name="status" value="cancelled" {% if task.status == 'cancelled' %}checked{% endif %}> Cancelled<br>
+
+    <input type="submit" value="Update Task">
+</form>
+<div>
+    {% for msg in messages %}
+    <p> {{ message }}</p>
+    {% endfor %}
+</div>

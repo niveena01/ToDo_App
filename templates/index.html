@@ -1,0 +1,54 @@
+    {% include 'base.html' %}
+    <div>
+        <h1>Task List</h1>
+        <table>
+            <tr>
+                <th>Tasks Title</th>
+                <th>Description</th>
+                <th>Deadline</th>
+                <th>Status</th>
+            </tr>
+            {% for obj in tasks %}
+            <tr>
+                <td>{{obj.title}}</td>
+                <td>{{obj.description}}</td>
+                <td>{{obj.deadline}}</td>
+                <td>{{obj.status}}</td>
+                <td>
+                    <a href="{% url 'task_update' obj.id %}" type="submit">Update</a>
+                </td>
+                <td>
+                    <a href="{% url 'task_delete' obj.id %}" type="submit">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+    <h1>Create Tasks</h1>
+    <form method="post" enctype="multipart/form-data" action="{% url 'task_create' %}">
+        {% csrf_token %}
+        <div>
+            <label for="title">Title: </label><input type="text" name="title">
+        </div>
+        <div>
+            <label for="description">Description: </label><textarea name="description"></textarea>
+        </div>
+        <div>
+            <label for="deadline">Deadline: </label><input type="date" name="deadline">
+        </div>
+        <div>
+            <label for="status">Status: </label><input type="radio" name="status" value="not_started"> Not started
+            <input type="radio" name="status" value="in_progress"> In progress
+            <input type="radio" name="status" value="completed"> Completed
+            <input type="radio" name="status" value="postponed"> Postponed
+            <input type="radio" name="status" value="cancelled"> Cancelled
+        </div>
+        <div>
+            <input type="submit">
+        </div>
+    </form>
+
+    {% for message in messages %}
+    <p> {{ message }}</p>
+    {% endfor %}
